@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>11412滅火器介紹與使用操作(己)_含解.pdf</title>
+  <style>
+    :root { --brand:#0B5AA2; --text:#222; --muted:#6b7280; --ok:#0a7a35; --bad:#b91c1c; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'PingFang TC', Arial, sans-serif; line-height:1.75; color:var(--text); margin:0; background:#fafafa; }
+    header { background:var(--brand); color:#fff; padding:18px 14px; }
+    h1 { margin:0; font-size:1.1rem; }
+    .container { max-width: 820px; margin: 0 auto; padding:24px 16px; }
+    .card { border:1px solid #e5e7eb; border-radius:12px; padding:20px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.04); }
+    .field { margin: 12px 0; }
+    label { display:block; font-weight:600; margin-bottom:6px; }
+    input[type=text] { width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
+    .btn { background:var(--brand); color:#fff; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
+    .btn.secondary { background:#475569; }
+    .btn[disabled] { background:#9aa6b2; cursor:not-allowed; }
+    .muted { color:var(--muted); }
+    .qnum { color:#555; font-size:.95rem; }
+    .options label { display:block; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin:10px 0; cursor:pointer; }
+    .options input[type=radio] { margin-right:8px; }
+    .nav { display:flex; justify-content:space-between; align-items:center; margin-top:16px; }
+    .score { font-size: 2.4rem; margin:0; }
+    .pass { color:var(--ok); }
+    .fail { color:var(--bad); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>11412滅火器介紹與使用操作(己)_含解.pdf</h1>
+  </header>
+
+  <main class="container">
+    <!-- View: pre-test form -->
+    <section id="view-form" class="card" style="display:none;">
+      <h2 style="margin-top:0">測驗資料</h2>
+      <p class="muted" style="margin-top:-6px">請先輸入單位與姓名再開始測驗。</p>
+      <div class="field">
+        <label for="unit">單位</label>
+        <input type="text" id="unit" placeholder="請輸入單位" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="name">姓名</label>
+        <input type="text" id="name" placeholder="請輸入姓名" autocomplete="name" />
+      </div>
+      <div style="margin-top:12px">
+        <button class="btn" id="startBtn">開始測驗</button>
+      </div>
+    </section>
+
+    <!-- View: question (one per screen) -->
+    <section id="view-quiz" class="card" style="display:none;">
+      <div class="qnum" id="qnum"></div>
+      <h2 id="qtext" style="margin:6px 0 12px;"></h2>
+      <div id="qopts" class="options"></div>
+      <div class="nav">
+        <button class="btn secondary" id="prevBtn">上一題</button>
+        <button class="btn" id="nextBtn">下一題</button>
+      </div>
+    </section>
+
+    <!-- View: results -->
+    <section id="view-result" class="card" style="display:none;">
+      <h2 style="margin-top:0">測驗結果</h2>
+      <p class="muted" id="userInfo"></p>
+      <p id="scoreP" class="score"></p>
+      <p id="status" style="font-weight:700"></p>
+      <div style="margin-top:10px">
+        <button class="btn" id="retryBtn">重新作答</button>
+      </div>
+    </section>
+  </main>
+
+<script>
+const FILE_TITLE = "11412滅火器介紹與使用操作(己)_含解.pdf";
+const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzYhGvCgQzBZY5llVTRwHmn3II5UVzp_1z8305oScJFCFVU7I7ni-tBlG7b4sqMdkEM/exec";
+const PASSING_SCORE = 60;
+const QUESTIONS = [{"type": "tf", "text": "火災分 ESG三類。", "correct": "X"}, {"type": "tf", "text": "火災剛發生且尚未延燒至天花板前，不用依火災種類選擇滅火器來滅 火時應將滅火器集中於火源附近，以能連續使用滅火器將火源撲滅。", "correct": "X"}, {"type": "tf", "text": "A類火災為木材、紙張、綿紗、布料、塑膠類等物質引起之火災。", "correct": "O"}, {"type": "tf", "text": "火是住戶生命安全的最主要威脅，其擴散方式區分為垂直擴張及水平 擴張。", "correct": "O"}, {"type": "tf", "text": "使用一氧化碳滅火器時，應注意握住手把部份，以免凍傷。", "correct": "X"}, {"type": "tf", "text": "火警發信機按鈕不可隨便觸碰。", "correct": "O"}, {"type": "tf", "text": "使用滅火器時，應於下風處。", "correct": "X"}, {"type": "tf", "text": "使用滅火器前應先查看外觀是否銹蝕、壓力表是否充足？", "correct": "O"}, {"type": "tf", "text": "電器火災並不適合使用「泡沫」滅火器。", "correct": "O"}, {"type": "tf", "text": "使用滅火器前不用先查看安全插銷是否被拉開？", "correct": "X"}, {"type": "mc", "text": "B 類火災為 1.紙張、綿紗 2.石油類、有機溶劑 3.通電中設備。", "options": ["1.紙張、綿紗", "2.石油類、有機溶劑", "3.通電中設備"], "answer": 2}, {"type": "mc", "text": "使用滅火器前應先查看 1.顏色 2.重量 3.安全插銷。", "options": ["1.顏色", "2.重量", "3.安全插銷"], "answer": 3}, {"type": "mc", "text": "撲滅火源有哪些方法？1.水柱 2.水霧 3.以上皆是 射水法。", "options": ["1.水柱", "2.水霧", "3.以上皆是"], "answer": 3}, {"type": "mc", "text": "緊急事件時保全的責任為 1.防護生命與財產 2.管制車輛與行人 3.以 上皆是。", "options": ["1.防護生命與財產", "2.管制車輛與行人", "3.以上皆是"], "answer": 3}, {"type": "mc", "text": "員工在 1.10 人 2.30 人 3.50 人以上者，應編組滅火班、避難引導班、 通報班。", "options": ["1.10 人", "2.30 人", "3.50 人以上"], "answer": 1}, {"type": "mc", "text": "A類火災為 1.布料、塑膠類 2.通電中設備 3.動植物油類、天然氣。", "options": ["1.布料、塑膠類", "2.通電中設備", "3.動植物油類、天然氣"], "answer": 1}, {"type": "mc", "text": "一般滅火器有效噴灑時間約為 1.5~7 秒 2.1~3 秒 3.4~6 秒 4.10~15 秒左右。", "options": ["1.5~7 秒", "2.1~3 秒", "3.4~6 秒", "4.10~15 秒左右"], "answer": 4}, {"type": "mc", "text": "確認滅火器之壓力指針是否於 1.紅色 2.綠色 3.黃色 4.藍色範圍，並先 行試噴。", "options": ["1.紅色", "2.綠色", "3.黃色", "4.藍色"], "answer": 2}, {"type": "mc", "text": "一般滅火器之滅火有效射程約為 1.3 公尺 2.5 公尺 3.7 公尺左右才能 發揮最大效用。", "options": ["1.3 公尺", "2.5 公尺", "3.7 公尺"], "answer": 2}, {"type": "mc", "text": "火災分哪幾類？1.XYZ 2.一二三 3.ESG 4.ABC。", "options": ["1.XYZ", "2.一二三", "3.ESG", "4.ABC"], "answer": 4}];
+
+// LocalStorage keys (scoped for 11412)
+const LS_USER = 'ele_quiz_user_11412';
+const LS_ANS = 'ele_quiz_answers_11412';
+
+function show(id){
+  document.querySelectorAll('main section').forEach(s=> s.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+
+function loadUser(){ try { return JSON.parse(localStorage.getItem(LS_USER) || '{}'); } catch(e){ return {}; } }
+function saveUser(u){ localStorage.setItem(LS_USER, JSON.stringify(u)); }
+
+function loadAnswers(){ try { return JSON.parse(localStorage.getItem(LS_ANS) || '{}'); } catch(e){ return {}; } }
+function saveAnswer(idx, value){ const a = loadAnswers(); a[idx] = value; localStorage.setItem(LS_ANS, JSON.stringify(a)); }
+
+function initForm(){
+  const u = loadUser();
+  const unit = document.getElementById('unit');
+  const name = document.getElementById('name');
+  unit.value = u.unit || '';
+  name.value = u.name || '';
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    const vUnit = unit.value.trim();
+    const vName = name.value.trim();
+    if(!vUnit || !vName){ alert('請完整輸入單位與姓名'); return; }
+    saveUser({unit:vUnit, name:vName});
+    localStorage.removeItem(LS_ANS);
+    startQuiz(1);
+  });
+}
+
+function renderQuestion(idx){
+  const q = QUESTIONS[idx-1];
+  document.getElementById('qnum').textContent = `第 ${idx} / ${QUESTIONS.length} 題`;
+  document.getElementById('qtext').textContent = q.text;
+  const wrap = document.getElementById('qopts');
+  const a = loadAnswers()[idx] || '';
+  if(q.type==='tf'){
+    wrap.innerHTML = `
+      <label><input type="radio" name="opt" value="O" ${a==='O'?'checked':''}/> ( ) 正確</label>
+      <label><input type="radio" name="opt" value="X" ${a==='X'?'checked':''}/> ( ) 錯誤</label>
+    `;
+  } else {
+    wrap.innerHTML = q.options.map((opt, i)=>{ const v = String(i+1); return `<label><input type="radio" name="opt" value="${v}" ${a===v?'checked':''}/> ${opt}</label>`; }).join('');
+  }
+  document.querySelectorAll('input[name="opt"]').forEach(r=> r.addEventListener('change', e=> saveAnswer(idx, e.target.value)));
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  prevBtn.disabled = idx===1;
+  nextBtn.textContent = (idx===QUESTIONS.length)? '提交交卷' : '下一題';
+  prevBtn.onclick = ()=> startQuiz(idx-1);
+  nextBtn.onclick = ()=>{
+    const checked = document.querySelector('input[name="opt"]:checked');
+    if(!checked){ alert('請先選擇一個選項'); return; }
+    saveAnswer(idx, checked.value);
+    if(idx===QUESTIONS.length){ computeAndShowResult(); } else { startQuiz(idx+1); }
+  };
+}
+
+function startQuiz(startIdx){ show('view-quiz'); renderQuestion(startIdx); }
+
+function formatLocalTs(){
+  try{ return new Date().toLocaleString('zh-TW', { hour12:false, timeZone: 'Asia/Taipei' }); }
+  catch(e){ const d = new Date(); const p = n=> String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
+}
+
+function displayTitleFrom(full){
+  let t = String(full).replace(/\.(pdf|PDF|html)$/,'');
+  // 移除括號內註記與其後綴（例如 (己)_含解）
+  t = t.replace(/[（(].*?[）)]/g,'');
+  t = t.replace(/[_-].*$/,'');
+  return t.trim();
+}
+
+function sendToSheets(payload){
+  try{
+    if(!SHEETS_ENDPOINT) return;
+    const params = new URLSearchParams(payload);
+    fetch(SHEETS_ENDPOINT, { method:'POST', body: params });
+  }catch(err){ console.error(err); }
+}
+
+function computeAndShowResult(){
+  const answers = loadAnswers();
+  let correctCount = 0;
+  QUESTIONS.forEach((q, i)=>{ const idx=i+1; const a=answers[idx]; if(q.type==='tf'){ if(a===q.correct) correctCount++; } else { if(String(a)===String(q.answer)) correctCount++; }});
+  const score = Math.round(correctCount / QUESTIONS.length * 100);
+  const pass = score >= PASSING_SCORE;
+
+  show('view-result');
+  const u = loadUser();
+  document.getElementById('userInfo').textContent = `${u.unit || ''}／${u.name || ''}`;
+  document.getElementById('scoreP').textContent = `${score} 分`;
+  const status = document.getElementById('status');
+  status.textContent = pass ? '恭喜！及格' : '未達 60 分，請再接再厲';
+  status.className = pass ? 'pass' : 'fail';
+
+  const ts = formatLocalTs();
+  const item = displayTitleFrom(FILE_TITLE);
+  const payload = { timestamp: ts, item: item, unit: u.unit || '', name: u.name || '', score: String(score), pass: pass ? '及格' : '不及格' };
+  sendToSheets(payload);
+}
+
+function boot(){ const u = loadUser(); if(!u.unit || !u.name){ show('view-form'); initForm(); return; } show('view-form'); initForm(); }
+
+window.addEventListener('DOMContentLoaded', ()=>{ boot(); document.getElementById('retryBtn').addEventListener('click', ()=>{ localStorage.removeItem(LS_ANS); startQuiz(1); }); });
+</script>
+</body>
+</html>
